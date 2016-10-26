@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
+import { User } from '../../user-model';
+import { Http, Headers } from '@angular/http';
 
 @Component({
   selector: 'page-signup',
@@ -7,8 +9,17 @@ import { NavController, AlertController } from 'ionic-angular';
 })
 export class Signup {
 
-  constructor(public navCtrl: NavController) {
+   user: User = {
+    name: "",
+    username: "samarth",
+    email: "",
+    password: ""
+  };
 
+  confirmPassword: string;
+  url: string;
+
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public _http: Http) {
   }
 
   goToLogin(){
