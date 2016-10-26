@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Friends List
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <img src="assets/images/ionic2.png" class="logo"/>
+  </ion-card>
+  <ion-list no-lines>
+    <ion-item>
+      <ion-label floating>Name </ion-label>
+      <ion-input type="text" [(ngModel)]="user.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Username </ion-label>
+      <ion-input type="text" [(ngModel)]="user.username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Email </ion-label>
+      <ion-input type="email" [(ngModel)]="user.email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Password </ion-label>
+      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Confirm Password </ion-label>
+      <ion-input type="password"  [(ngModel)]="confirmPassword"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button block ion-button (click)="signup()">Sign Up</button>
+  <button clear block ion-button (click)="goToLogin()">Already hava an Account? Login Here</button>
+</ion-content>
