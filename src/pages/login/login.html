@@ -7,5 +7,19 @@
 </ion-header>
 
 <ion-content padding>
-  
+  <ion-card>
+    <img src="assets/images/ionic2.png" class="logo"/>
+  </ion-card>
+  <ion-list no-lines>
+    <ion-item>
+      <ion-label floating>Username </ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Password </ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button block ion-button (click)="login()">Login</button>
+  <button clear block ion-button (click)="goToSignUp()">No Account? Sign Up Here</button>
 </ion-content>
