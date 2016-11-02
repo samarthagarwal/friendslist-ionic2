@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, AlertController } from 'ionic-angular';
 import { Signup } from '../signup/signup';
+import { ListPage } from '../list-page/list-page';
 import { User } from '../../user-model';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -41,8 +42,16 @@ export class LoginPage {
     this.http.get(this.url, {headers: this.headers}).subscribe(res => {
       console.log(res);
       //Navigate the user to the main app page
+      this.navCtrl.setRoot(ListPage);
+
     }, err => {
       console.log(err);
+      this.alertCtrl
+        .create({ title : "Error", message: err.text(), buttons: [{
+          text: 'OK',
+        }]})
+        .present();
+
     })
 
   }
