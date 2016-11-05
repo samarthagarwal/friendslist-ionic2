@@ -6,6 +6,7 @@ import { ListPage } from '../list-page/list-page';
 import { User } from '../../user-model';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'login.html'
@@ -20,7 +21,7 @@ export class LoginPage {
   url: string;
   headers: Headers;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public http: Http) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public http: Http, public localStorage: Storage) {
     this.headers = new Headers();
     this.headers.append("X-Parse-Application-Id", "AppId1");
   }
@@ -42,7 +43,12 @@ export class LoginPage {
     this.http.get(this.url, {headers: this.headers}).subscribe(res => {
       console.log(res);
       //Navigate the user to the main app page
-      this.navCtrl.setRoot(ListPage);
+
+      this.localStorage.set('user', res.json().objectId).then(()=>{
+          this.navCtrl.setRoot(ListPage);
+      })
+
+      
 
     }, err => {
       console.log(err);

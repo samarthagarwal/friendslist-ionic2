@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { Signup } from '../pages/signup/signup';
 import { ListPage } from '../pages/list-page/list-page';
+import { Storage } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,6 @@ import { ListPage } from '../pages/list-page/list-page';
     Signup,
     ListPage
   ],
-  providers: []
+  providers: [Storage]
 })
 export class AppModule {}

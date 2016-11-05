@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-list-page',
@@ -11,10 +12,19 @@ export class ListPage {
 
   headers: Headers;
   url: string;
+  friends: any[];
+  userId: string;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public http: Http) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public http: Http, public localStorage: Storage) {
     this.headers = new Headers();
     this.headers.append("X-Parse-Application-Id", "AppId1");
+
+    this.localStorage.get('user').then((value) => {
+      this.userId = value;
+      this.getFriends(null);
+    })
+
+    
   }
 
   showAddDialog(){
@@ -41,7 +51,7 @@ export class ListPage {
 
             this.url = "https://parsewithionic-samarthagarwal.c9users.io/app1/classes/friendslist";
 
-            this.http.post(this.url, { name: data.name, email: data.email, number: data.number, image: "http://lorempixel.com/32/32"}, {headers: this.headers}).map(res => res.json()).subscribe(res => {
+            this.http.post(this.url, {owner: this.userId, name: data.name, email: data.email, number: data.number, image: "http://lorempixel.com/32/32"}, {headers: this.headers}).map(res => res.json()).subscribe(res => {
                 console.log(res);
                 this.alertCtrl.create({
                   title: "Success",
@@ -49,7 +59,7 @@ export class ListPage {
                   buttons: [{
                     text: "OK",
                     handler: ()=>{
-
+                      this.getFriends(null);
                     }
                   }]
                 }).present();
@@ -69,5 +79,31 @@ export class ListPage {
       ]
     }).present();
   }
+
+  getFriends(refresher){
+
+    this.url = 'https://parsewithionic-samarthagarwal.c9users.io/app1/classes/friendslist?where={"owner":"' +this.userId+ '"}';
+
+    this.http.get(this.url, {headers: this.headers}).map(res => res.json()).subscribe(res => {
+      console.log(res);
+      this.friends = res.results;
+
+      if(refresher !== null)
+        refresher.complete();
+
+    }, err => {
+      this.alertCtrl
+        .create({ title : "Error", message: err.text(), buttons: [{
+          text: 'OK',
+        }]})
+        .present();
+    })
+
+  }
+
+
+  
+
+
 
 }
