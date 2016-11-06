@@ -2,6 +2,11 @@
 
   <ion-navbar>
     <ion-title>Welcome</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="logout()">
+          <ion-icon name="exit"></ion-icon>
+        </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -34,7 +39,7 @@
         <button ion-button icon-only color="secondary" (click)="editFriend(friend)">
           <ion-icon name="create"></ion-icon>
         </button>
-        <button color="danger" ion-button icon-only>
+        <button color="danger" ion-button icon-only (click)="deleteFriend(friend)">
           <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>
